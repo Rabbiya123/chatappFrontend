@@ -1,0 +1,55 @@
+<h1>Signup Page</h1>
+<div class="formdiv">
+  <form (ngSubmit)="signup()" #signupForm="ngForm">
+    <input
+      class="text"
+      type="text"
+      placeholder="Enter your name"
+      [(ngModel)]="user.username"
+      name="username"
+      required
+    /><br />
+    <input
+      class="text"
+      type="email"
+      placeholder="Enter your email"
+      [(ngModel)]="user.email"
+      name="email"
+      required
+    /><br />
+
+    <div *ngIf="errorMessage" class="error-message">
+      <p>** {{ errorMessage }}</p>
+    </div>
+
+    <input
+      class="text"
+      type="password"
+      placeholder="Enter your password"
+      [(ngModel)]="user.password"
+      name="password"
+      #password="ngModel"
+      required
+      minlength="8"
+    /><br />
+
+    <!-- Display a validation message if password is less than 8 characters -->
+    <div *ngIf="password.invalid && (password.dirty || password.touched)">
+      <p *ngIf="password.errors?.['minlength']" class="error-message">
+        **Password must be at least 8 characters long.
+      </p>
+    </div>
+
+    <select name="role" [(ngModel)]="user.role" required class="text">
+      <option value="admin">Admin</option>
+      <option value="agent">Agent</option>
+    </select>
+    <button
+      type="submit"
+      [disabled]="signupForm.invalid || password.invalid"
+      class="btn"
+    >
+      Save
+    </button>
+  </form>
+</div>

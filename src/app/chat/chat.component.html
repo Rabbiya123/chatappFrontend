@@ -1,0 +1,14 @@
+<div *ngIf="connected; else notConnected">
+  <p>WebSocket is connected and working!</p>
+</div>
+<ng-template #notConnected>
+  <p>WebSocket is not connected.</p>
+</ng-template>
+
+<input
+  [(ngModel)]="message"
+  (keyup.enter)="sendMessage()"
+  placeholder="Enter a message"
+/>
+<button (click)="sendMessage()">Send</button>
+<div *ngFor="let msg of messages">{{ msg }}</div>

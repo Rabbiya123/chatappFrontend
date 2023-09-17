@@ -1,0 +1,23 @@
+<h1>Login Page</h1>
+<div class="formdiv">
+  <form (ngSubmit)="login()">
+    <input
+      class="text"
+      type="email"
+      placeholder="Enter your email"
+      [(ngModel)]="c1.email"
+      name="email"
+      required
+    />
+    <input
+      class="text"
+      type="password"
+      placeholder="Enter your password"
+      [(ngModel)]="c1.password"
+      name="password"
+      required
+    /><br />
+
+    <button type="submit" class="btn">Login</button>
+  </form>
+</div>

@@ -1,0 +1,11 @@
+/* CSS to display the icon above the button */
+.icon-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  text-align: center; /* Center text horizontally */
+}
+
+.icon-button-container fa-icon {
+  margin-bottom: 10px;
+}

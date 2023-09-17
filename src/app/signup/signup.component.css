@@ -1,0 +1,27 @@
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+}
+.formdiv {
+  /* border: 2px solid green; */
+  margin-left: 15em;
+  width: 70%;
+  margin-top: 2em;
+}
+.text {
+  width: 90%;
+  padding: 0.9em;
+  margin-top: 0.9em;
+}
+.btn {
+  width: 20%;
+  padding: 0.9em;
+  background-color: green;
+  color: #fff;
+  margin-left: 23em;
+  margin-top: 0.9em;
+  border-radius: 4px;
+}
+.error-message {
+  color: red;
+}

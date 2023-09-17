@@ -1,0 +1,106 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Basic styling for the chat container */
+.chat-container {
+  width: 600px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style for the chat header */
+.chat-header {
+  text-align: center;
+  background-color: #128c7e;
+  color: #fff;
+  padding: 10px;
+}
+
+/* Style for the chat body */
+.chat-body {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+/* Style for the user list on the left side */
+.user-list {
+  width: 30%;
+  background-color: #f5f5f5;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.user {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+
+.user:hover {
+  background-color: #e0e0e0;
+}
+
+/* Style for the message screen on the right side */
+.message-screen {
+  width: 70%;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.sent {
+  background-color: #128c7e;
+  color: #fff;
+  align-self: flex-end;
+}
+
+.received {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  align-self: flex-start;
+}
+
+/* Style for the chat input */
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+  justify-content: flex-end; /* Move input field and button to the right */
+}
+
+.chat-input input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 25px;
+  background-color: #fff;
+  outline: none;
+  margin-right: 10px; /* Add some spacing between input and button */
+}
+
+.chat-input button {
+  background-color: #128c7e;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #0e735b;
+}
