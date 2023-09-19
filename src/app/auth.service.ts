@@ -1,12 +1,14 @@
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private tokenKey = 'auth-token';
-
-  constructor() {}
+  private loggedInUser: any;
+  private user: any;
+  constructor(private http: HttpClient) {}
 
   setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
@@ -26,5 +28,31 @@ export class AuthService {
   isLoggedIn(): boolean {
     const token = this.getToken();
     return !!token;
+  }
+
+  setLoggedInUser(user: any): void {
+    this.loggedInUser = user;
+  }
+
+  // Login method
+
+  login(credentials: any): Observable<any> {
+    // Assuming you make an HTTP request to authenticate the user
+    return this.http.post('http://localhost:3000/api/login', credentials);
+  }
+
+  // Set the user information
+  setUser(user: any): void {
+    this.user = user;
+  }
+
+  // Get the user information
+  getUser(): any {
+    return this.user;
+  }
+
+  // Get the username
+  getUsername(): string | undefined {
+    return this.user ? this.user.username : undefined;
   }
 }

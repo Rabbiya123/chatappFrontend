@@ -5,10 +5,31 @@
   <p>WebSocket is not connected.</p>
 </ng-template>
 
-<input
-  [(ngModel)]="message"
-  (keyup.enter)="sendMessage()"
-  placeholder="Enter a message"
-/>
-<button (click)="sendMessage()">Send</button>
-<div *ngFor="let msg of messages">{{ msg }}</div>
+<div class="chat-container">
+  <div class="user-list">
+    <h3>Your Friends:</h3>
+    <ul>
+      <li *ngFor="let user of userlist">{{ user.username }}</li>
+    </ul>
+  </div>
+
+  <div class="chat-interface">
+    <div class="chat-header">
+      <h2>Chat as {{ loginUser }}</h2>
+    </div>
+
+    <div class="chat-messages">
+      <div *ngFor="let msg of messages" class="message">{{ msg }}</div>
+    </div>
+
+    <div class="message-input">
+      <input
+        [(ngModel)]="message"
+        (keyup.enter)="sendMessage()"
+        placeholder="Enter a message"
+      />
+      <button (click)="sendMessage()">Send</button>
+      <div *ngFor="let msg of messages">{{ msg }}</div>
+    </div>
+  </div>
+</div>

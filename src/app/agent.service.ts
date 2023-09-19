@@ -13,4 +13,8 @@ export class AgentService {
   getAgents(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  getOtherUsers(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:3000/api/users');
+  }
 }

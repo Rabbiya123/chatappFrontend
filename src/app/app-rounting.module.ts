@@ -11,8 +11,6 @@ import { AuthGuard } from './auth.guard';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserlistComponent } from './userlist/userlist.component';
 import { ChatComponent } from './chat/chat.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { ChatInterfaceComponent } from './chat-interface/chat-interface.component';
 
 const routes: Routes = [
   {
@@ -36,14 +34,7 @@ const routes: Routes = [
     path: 'chat',
     component: ChatComponent,
   },
-  {
-    path: 'user-list-chat',
-    component: UserListComponent,
-  },
-  {
-    path: 'chat-interface',
-    component: ChatInterfaceComponent,
-  },
+
   {
     path: '',
     redirectTo: '/login',

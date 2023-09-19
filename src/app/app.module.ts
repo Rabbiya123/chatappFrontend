@@ -23,8 +23,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { UserlistComponent } from './userlist/userlist.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { UserListComponent } from './user-list/user-list.component';
-import { ChatInterfaceComponent } from './chat-interface/chat-interface.component';
 import { ChatComponent } from './chat/chat.component';
 @NgModule({
   imports: [
@@ -43,8 +41,6 @@ import { ChatComponent } from './chat/chat.component';
     HomeComponent,
     UserlistComponent,
     ChatComponent,
-    UserListComponent,
-    ChatInterfaceComponent,
   ],
   providers: [
     {

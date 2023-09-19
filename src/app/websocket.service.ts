@@ -30,7 +30,7 @@ export class WebsocketService {
     this.socket.emit('live_message', message);
   }
 
-  // // Track WebSocket connection status
+  // Track WebSocket connection status
   connectionStatus() {
     return this.connected$.asObservable();
   }

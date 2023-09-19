@@ -13,6 +13,7 @@ export class LoginComponent {
     email: '',
     password: '',
   };
+  // credentials = '';
 
   constructor(
     private http: HttpClient,
@@ -38,6 +39,15 @@ export class LoginComponent {
             },
           });
         }
+
+        this.authService.login(this.c1).subscribe(
+          (response: any) => {
+            this.authService.setUser(response);
+          },
+          (error) => {
+            console.error('this is an error', error);
+          }
+        );
       },
       (error) => {
         console.error(error);
