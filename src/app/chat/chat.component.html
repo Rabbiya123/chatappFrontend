@@ -5,17 +5,19 @@
   <p>WebSocket is not connected.</p>
 </ng-template>
 
+<h1>{{ loginUser }}</h1>
 <div class="chat-container">
   <div class="user-list">
     <h3>Your Friends:</h3>
     <ul>
-      <li *ngFor="let user of userlist">{{ user.username }}</li>
+      <li *ngFor="let user of userlist" (click)="selectUser(user)">
+        {{ user.username }}
+      </li>
     </ul>
   </div>
-
   <div class="chat-interface">
     <div class="chat-header">
-      <h2>Chat as {{ loginUser }}</h2>
+      <h2>Chat with {{ selectedUser?.username }}</h2>
     </div>
 
     <div class="chat-messages">
@@ -29,7 +31,6 @@
         placeholder="Enter a message"
       />
       <button (click)="sendMessage()">Send</button>
-      <div *ngFor="let msg of messages">{{ msg }}</div>
     </div>
   </div>
 </div>
