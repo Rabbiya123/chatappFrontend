@@ -1,9 +1,11 @@
 import { AgentService } from './../agent.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
 import { WebsocketService } from '../websocket.service';
 import { AuthService } from '../auth.service';
+// import * as jwt_decode from "jwt-decode";
 import jwt_decode from 'jwt-decode';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -20,16 +22,12 @@ export class ChatComponent implements OnInit {
   selectedUser: any;
   jwtToken: string = '';
   decodedToken: any;
+
   credentials = {
-    // Define the credentials object
     email: '',
     password: '',
   };
   constructor(
-    // this.jwtToken = localStorage.getItem('token');
-    // this.decodedToken = this.jwtToken ? jwt_decode(this.jwtToken) : null;
-    // this.receiverid = this.decodedToken ? this.decodedToken.userId : null;
-
     private websocketService: WebsocketService,
     private AgentService: AgentService,
     private AuthService: AuthService
@@ -40,26 +38,38 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch (Error) {
+      console.error('Error decoding token');
+      return null;
+    }
+  }
+
+  selectUser(user: any) {
+    this.selectedUser = user;
+    console.log('this is receiver id', user);
+    this.messages = [];
+  }
+
   sendMessage() {
     if (this.selectedUser && this.message.trim() !== '') {
+      console.log('Sender ID:', this.senderid);
+      console.log('receiver ID:', this.receiverid);
+
       const message = {
         sender: this.senderid,
-        receiver: this.receiverid,
+        receiver: this.selectedUser._id,
         content: this.message,
       };
-
+      console.log('sending message:', message);
       this.websocketService.sendMessage(message);
       this.messages.push(`You: ${this.message}`);
       this.message = '';
     }
   }
 
-  selectUser(user: any) {
-    this.selectedUser = user;
-    this.receiverid = user.id;
-    console.log('This is user', user);
-    this.messages = [];
-  }
   ngOnInit(): void {
     this.loginUser = this.AuthService.getUsername();
 
@@ -71,5 +81,16 @@ export class ChatComponent implements OnInit {
         console.error('Error fetching other users:', error);
       }
     );
+    const token = this.AuthService.getToken();
+    const decodedToken = this.AuthService.decodeToken(token);
+
+    if (decodedToken) {
+      const userId = decodedToken.userId;
+      this.senderid = userId;
+      console.log('this is the login user id', userId);
+      console.log('Decoded Token:', decodedToken);
+    } else {
+      console.error('Token not found or decoding failed');
+    }
   }
 }

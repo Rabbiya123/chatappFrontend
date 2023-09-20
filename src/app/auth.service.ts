@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import jwt_decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,6 +17,16 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
+  }
+  decodeToken(token: string | null): any {
+    if (token) {
+      try {
+        return jwt_decode(token);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+    return null;
   }
 
   isAuthenticated(): boolean {

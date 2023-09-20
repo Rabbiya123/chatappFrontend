@@ -27,8 +27,8 @@ export class WebsocketService {
 
   // Send a message to the server
   sendMessage(message: any) {
-    const { content, senderid, receiverid } = message;
-    this.socket.emit('live_message', { content, senderid, receiverid });
+    // const { content, senderid, receiverid } = message;
+    this.socket.emit('live_message', message);
   }
 
   // Track WebSocket connection status

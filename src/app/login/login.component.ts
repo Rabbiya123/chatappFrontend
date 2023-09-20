@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-
+import jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +20,14 @@ export class LoginComponent {
     private router: Router,
     private authService: AuthService
   ) {}
-
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch (Error) {
+      console.error('Error decoding token');
+      return null;
+    }
+  }
   login() {
     this.http.post('http://localhost:3000/api/login', this.c1).subscribe(
       (response: any) => {
@@ -29,7 +36,7 @@ export class LoginComponent {
 
         alert('Login Successfully');
         if (response.token && response.email && response.username) {
-          console.log('Setting token:', response.token);
+          // console.log('Setting token:', response.token);
           this.authService.setToken(response.token);
           this.router.navigate(['/home'], {
             queryParams: {
