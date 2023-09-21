@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import io from 'socket.io-client';
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,11 @@ export class WebsocketService {
   private connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
+  private incomingMessage: BehaviorSubject<any> = new BehaviorSubject<any>(
+    null
+  );
+
+  incomingMessage$: Observable<any> = this.incomingMessage.asObservable();
 
   constructor() {
     this.socket = io('http://localhost:3000', {
@@ -25,9 +31,20 @@ export class WebsocketService {
     });
   }
 
-  // Send a message to the server
+  joinRoom(roomId: string) {
+    this.socket.emit('joinRoom', roomId);
+  }
+
+  listenForMessages(): Observable<any> {
+    return new Observable((observer) => {
+      this.socket.on('live_message', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  // Send a live message to the server
   sendMessage(message: any) {
-    // const { content, senderid, receiverid } = message;
     this.socket.emit('live_message', message);
   }
 

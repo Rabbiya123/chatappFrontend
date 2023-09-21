@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+
 import jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-login',
@@ -13,7 +14,6 @@ export class LoginComponent {
     email: '',
     password: '',
   };
-  // credentials = '';
 
   constructor(
     private http: HttpClient,
