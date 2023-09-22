@@ -4,6 +4,7 @@ import { WebsocketService } from '../websocket.service';
 import { AuthService } from '../auth.service';
 import { Socket } from 'socket.io-client';
 import jwt_decode from 'jwt-decode';
+import { response } from 'express';
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +20,7 @@ export class ChatComponent implements OnInit {
   connected: boolean = false;
   userlist: any[] = [];
   loginUser: any;
-  selectedUser1: any;
+  selectedUser: any;
   incomingMessage: any;
   jwtToken: string = '';
   decodedToken: any;
@@ -41,7 +42,7 @@ export class ChatComponent implements OnInit {
   }
   //------------------------------------------
 
-  //Decode token method its call from service--
+  //Decode token method its call from service-
 
   getDecodedAccessToken(token: string): any {
     try {
@@ -55,26 +56,51 @@ export class ChatComponent implements OnInit {
 
   //-------Select User from the list-----------
   selectUser(user: any) {
-    this.selectedUser1 = user;
+    this.selectedUser = user;
+    if (this.selectedUser) {
+      const roomId = this.generatedRoomId(this.senderid, this.selectedUser._id);
+      console.log('RoomId', roomId);
+      this.websocketService
+        .joinRoom(roomId, this.senderid, this.selectedUser._id)
+        .subscribe(
+          (response) => {
+            if (response.success) {
+              console.log(`Successfully joined room: ${response.room}`);
+            } else {
+              console.error(`Error joining room: ${response.error}`);
+            }
+          },
+          (error) => {
+            console.error('Error in joinRoom:', error);
+          }
+        );
+    }
 
+    console.log('selecteduser', this.selectedUser);
     console.log('this is receiver id', user);
     this.messages = [];
   }
+
   //-------------------------------------------
+
+  generatedRoomId(userId: string, loggedInUser: string) {
+    const sortUserId = [userId, loggedInUser].sort().join('_');
+    return sortUserId;
+  }
 
   //-----Send Message to Serve Code -----------
   sendMessage() {
-    if (this.selectedUser1 && this.message.trim() !== '') {
+    if (this.selectedUser && this.message.trim() !== '') {
       console.log('Sender ID:', this.senderid);
       console.log('receiver ID:', this.receiverid);
 
       const message = {
         sender: this.senderid,
-        receiver: this.selectedUser1._id,
+        receiver: this.selectedUser._id,
         content: this.message,
       };
 
-      console.log('sending message:', message);
+      console.log('Message Send', message);
       // simply console
 
       this.websocketService.sendMessage(message);
@@ -101,7 +127,7 @@ export class ChatComponent implements OnInit {
         console.error('Error fetching other users:', error);
       }
     );
-
+    //-----------------------------------------------
     this.incomingMessage = this.websocketService.incomingMessage$.subscribe(
       (message) => {
         if (message) {

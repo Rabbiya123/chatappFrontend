@@ -31,8 +31,24 @@ export class WebsocketService {
     });
   }
 
-  joinRoom(roomId: string) {
-    this.socket.emit('joinRoom', roomId);
+  joinRoom(
+    roomId: string,
+    senderid: string,
+    receiverid: string
+  ): Observable<any> {
+    return new Observable((observer) => {
+      this.socket.emit(
+        'joinchat',
+        { roomId, senderid, receiverid },
+        (response: any) => {
+          if (response.success) {
+            observer.next(response);
+          } else {
+            observer.error(response);
+          }
+        }
+      );
+    });
   }
 
   listenForMessages(): Observable<any> {
