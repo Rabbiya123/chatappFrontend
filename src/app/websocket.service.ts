@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import io from 'socket.io-client';
 @Injectable({
   providedIn: 'root',
@@ -10,11 +10,6 @@ export class WebsocketService {
   private connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  private incomingMessage: BehaviorSubject<any> = new BehaviorSubject<any>(
-    null
-  );
-
-  incomingMessage$: Observable<any> = this.incomingMessage.asObservable();
 
   constructor() {
     this.socket = io('http://localhost:3000', {
@@ -31,37 +26,17 @@ export class WebsocketService {
     });
   }
 
-  joinRoom(
-    roomId: string,
-    senderid: string,
-    receiverid: string
-  ): Observable<any> {
-    return new Observable((observer) => {
-      this.socket.emit(
-        'joinchat',
-        { roomId, senderid, receiverid },
-        (response: any) => {
-          if (response.success) {
-            observer.next(response);
-          } else {
-            observer.error(response);
-          }
-        }
-      );
-    });
+  sendMessage(message: any) {
+    this.socket.emit('message', message);
   }
 
-  listenForMessages(): Observable<any> {
-    return new Observable((observer) => {
-      this.socket.on('live_message', (message: any) => {
+  getMessage() {
+    return new Observable((observer: Observer<any>) => {
+      this.socket.on('message', (message: string) => {
         observer.next(message);
+        console.log('received ', message);
       });
     });
-  }
-
-  // Send a live message to the server
-  sendMessage(message: any) {
-    this.socket.emit('live_message', message);
   }
 
   // Track WebSocket connection status

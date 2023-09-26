@@ -5,7 +5,7 @@ import { AuthService } from '../auth.service';
 import { Socket } from 'socket.io-client';
 import jwt_decode from 'jwt-decode';
 import { response } from 'express';
-
+import { ChatMessage } from '../chat-message';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -57,24 +57,6 @@ export class ChatComponent implements OnInit {
   //-------Select User from the list-----------
   selectUser(user: any) {
     this.selectedUser = user;
-    if (this.selectedUser) {
-      const roomId = this.generatedRoomId(this.senderid, this.selectedUser._id);
-      console.log('RoomId', roomId);
-      this.websocketService
-        .joinRoom(roomId, this.senderid, this.selectedUser._id)
-        .subscribe(
-          (response) => {
-            if (response.success) {
-              console.log(`Successfully joined room: ${response.room}`);
-            } else {
-              console.error(`Error joining room: ${response.error}`);
-            }
-          },
-          (error) => {
-            console.error('Error in joinRoom:', error);
-          }
-        );
-    }
 
     console.log('selecteduser', this.selectedUser);
     console.log('this is receiver id', user);
@@ -82,11 +64,6 @@ export class ChatComponent implements OnInit {
   }
 
   //-------------------------------------------
-
-  generatedRoomId(userId: string, loggedInUser: string) {
-    const sortUserId = [userId, loggedInUser].sort().join('_');
-    return sortUserId;
-  }
 
   //-----Send Message to Serve Code -----------
   sendMessage() {
@@ -127,18 +104,14 @@ export class ChatComponent implements OnInit {
         console.error('Error fetching other users:', error);
       }
     );
+
+    this.websocketService.getMessage().subscribe((message: string) => {
+      console.log('Message from server:', message);
+      this.messages.push(message);
+    });
+
     //-----------------------------------------------
-    this.incomingMessage = this.websocketService.incomingMessage$.subscribe(
-      (message) => {
-        if (message) {
-          console.log('Message Received', message.content);
-          this.messages.push(`Received: ${message.content}`);
-        }
-      },
-      (error) => {
-        console.log('error', error);
-      }
-    );
+
     //----------------------------------------------
 
     //----------Decode Token Code--------------------
