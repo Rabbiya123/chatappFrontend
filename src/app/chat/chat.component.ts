@@ -5,7 +5,7 @@ import { AuthService } from '../auth.service';
 import { Socket } from 'socket.io-client';
 import jwt_decode from 'jwt-decode';
 import { response } from 'express';
-import { ChatMessage } from '../chat-message';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
