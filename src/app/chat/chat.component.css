@@ -70,3 +70,8 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+.selected-user {
+  background-color: #0056b3;
+  color: #fff;
+}

@@ -7,14 +7,30 @@
 
 <h1>{{ loginUser }}</h1>
 <div class="chat-container">
-  <div class="user-list">
-    <h3>Your Friends:</h3>
+  <div class="chat-container">
+    <div class="user-list">
+      <h3>Your Friends:</h3>
+      <ul>
+        <li
+          *ngFor="let user of userlist"
+          (click)="selectUser(user)"
+          [ngClass]="{ 'selected-user': user === selectedUser }"
+        >
+          {{ user.username }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <h2>Messages</h2>
     <ul>
-      <li *ngFor="let user of userlist" (click)="selectUser(user)">
-        {{ user.username }}
+      <li *ngFor="let message of messages">
+        <strong>{{ message.sender }}:</strong> {{ message.content }}
       </li>
     </ul>
   </div>
+
   <div class="chat-interface">
     <div class="chat-header">
       <h2>Chat with {{ selectedUser?.username }}</h2>

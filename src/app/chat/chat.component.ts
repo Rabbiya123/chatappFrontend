@@ -1,3 +1,4 @@
+import { MessageService } from './../message.service';
 import { AgentService } from './../agent.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WebsocketService } from '../websocket.service';
@@ -33,7 +34,8 @@ export class ChatComponent implements OnInit {
   constructor(
     private websocketService: WebsocketService,
     private AgentService: AgentService,
-    private AuthService: AuthService
+    private AuthService: AuthService,
+    private MessageService: MessageService
   ) {
     this.websocketService.connectionStatus().subscribe((status) => {
       this.connected = status;
@@ -95,7 +97,6 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginUser = this.AuthService.getUsername();
-
     this.AgentService.getOtherUsers().subscribe(
       (users: any[]) => {
         this.userlist = users;
@@ -111,8 +112,6 @@ export class ChatComponent implements OnInit {
     });
 
     //-----------------------------------------------
-
-    //----------------------------------------------
 
     //----------Decode Token Code--------------------
     const token = this.AuthService.getToken();
