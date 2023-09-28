@@ -1,6 +1,6 @@
 import { MessageService } from './../message.service';
 import { AgentService } from './../agent.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { WebsocketService } from '../websocket.service';
 import { AuthService } from '../auth.service';
 import { Socket } from 'socket.io-client';
@@ -17,7 +17,15 @@ export class ChatComponent implements OnInit {
   message: any;
   senderid: string = '';
   receiverid: string = '';
-  messages: string[] = [];
+  messages: any[] = [
+    {
+      content: '',
+      sender: '',
+      receiver: '',
+      timer: '',
+    },
+  ];
+
   connected: boolean = false;
   userlist: any[] = [];
   loginUser: any;
@@ -59,10 +67,19 @@ export class ChatComponent implements OnInit {
   //-------Select User from the list-----------
   selectUser(user: any) {
     this.selectedUser = user;
-
-    console.log('selecteduser', this.selectedUser);
-    console.log('this is receiver id', user);
+    this.loadMessagesForUser(user._id);
+    // console.log('yh h ', user._id);
     this.messages = [];
+  }
+  loadMessagesForUser(userId: string) {
+    this.MessageService.getMessagesForUser(userId).subscribe(
+      (messages: any[]) => {
+        this.messages = messages;
+      },
+      (error) => {
+        console.error('Error fetching messages:', error);
+      }
+    );
   }
 
   //-------------------------------------------

@@ -22,14 +22,14 @@
     </div>
   </div>
 
-  <div>
+  <!-- your-component.component.html -->
+
+  <!-- <div>
     <h2>Messages</h2>
     <ul>
-      <li *ngFor="let message of messages">
-        <strong>{{ message.sender }}:</strong> {{ message.content }}
-      </li>
+      <li *ngFor="let message of messages">{{ message }}</li>
     </ul>
-  </div>
+  </div> -->
 
   <div class="chat-interface">
     <div class="chat-header">
@@ -37,7 +37,11 @@
     </div>
 
     <div class="chat-messages">
-      <div *ngFor="let msg of messages" class="message">{{ msg }}</div>
+      <div *ngFor="let msg of messages" class="message">
+        <span style="margin-left: 1em">{{ msg.sender }}</span>
+        <span style="margin-left: 1em">{{ msg.receiver }}</span>
+        <span style="margin-left: 1em">{{ msg.content }}</span>
+      </div>
     </div>
 
     <div class="message-input">
