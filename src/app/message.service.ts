@@ -13,7 +13,7 @@ export class MessageService {
   // message.service.ts
 
   getMessagesForUser(userId: string): Observable<any[]> {
-    const url = `${this.apiUrl}/user/${userId}`; // Remove "messages" from the URL
+    const url = `${this.apiUrl}/user/${userId}`;
     return this.http.get<any[]>(url);
   }
 }
