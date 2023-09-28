@@ -22,6 +22,8 @@ export class ChatComponent implements OnInit {
       content: '',
       sender: '',
       receiver: '',
+      username: '',
+      receiverName: '',
       timer: '',
     },
   ];
@@ -30,6 +32,7 @@ export class ChatComponent implements OnInit {
   userlist: any[] = [];
   loginUser: any;
   selectedUser: any;
+  loginuserName: String = '';
   incomingMessage: any;
   jwtToken: string = '';
   decodedToken: any;
@@ -92,7 +95,9 @@ export class ChatComponent implements OnInit {
 
       const message = {
         sender: this.senderid,
+        username: this.loginuserName,
         receiver: this.selectedUser._id,
+        receiverName: this.selectedUser.username,
         content: this.message,
       };
 
@@ -136,9 +141,11 @@ export class ChatComponent implements OnInit {
 
     if (decodedToken) {
       const userId = decodedToken.userId;
+      const loginUserName = decodedToken.username;
+      this.loginuserName = loginUserName;
       this.senderid = userId;
       // assign the login userId to variable senderId
-
+      console.log('username decoded', loginUserName);
       console.log('this is the login user id', userId);
       //simply console
       console.log('Decoded Token:', decodedToken);

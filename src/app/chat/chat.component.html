@@ -38,8 +38,8 @@
 
     <div class="chat-messages">
       <div *ngFor="let msg of messages" class="message">
-        <span style="margin-left: 1em">{{ msg.sender }}</span>
-        <span style="margin-left: 1em">{{ msg.receiver }}</span>
+        <span style="margin-left: 1em">{{ msg.username }}</span>
+        <span style="margin-left: 1em">{{ msg.receiverName }}</span>
         <span style="margin-left: 1em">{{ msg.content }}</span>
       </div>
     </div>
