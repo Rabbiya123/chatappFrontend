@@ -1,6 +1,5 @@
 import { LoginComponent } from './login/login.component';
 import { RouterModule, CanActivate } from '@angular/router';
-
 import { ApplicationModule, Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-rounting.module';
