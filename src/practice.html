@@ -3,7 +3,7 @@
   rel="stylesheet"
 />
 
-<h2>{{ loginUser }}</h2>
+<h4>{{ loginUser }}</h4>
 <div class="container">
   <div class="row clearfix">
     <div class="col-lg-12">
@@ -21,14 +21,14 @@
               class="clearfix"
               *ngFor="let user of userlist"
               (click)="selectUser(user)"
-              [ngClass]="{ 'selected-user': user === selectedUser }"
+              [ngClass]="{'selected-user':user===selectedUser}"
             >
               <img
                 src="https://bootdey.com/img/Content/avatar/avatar1.png"
                 alt="avatar"
               />
               <div class="about">
-                <div class="name">{{ user.username }}</div>
+                <div class="name">{{user.username}}</div>
                 <div class="status">
                   <i class="fa fa-circle offline"></i> left 7 mins ago
                 </div>
@@ -53,11 +53,11 @@
                   />
                 </a>
                 <div class="chat-about">
-                  <h4 class="m-b-0">{{ selectedUser?.username }}</h4>
+                  <h6 class="m-b-0">{{ selectedUser?.username }}</h6>
                   <small>Last seen: 2 hours ago</small>
                 </div>
               </div>
-              <!-- <div class="col-lg-6 hidden-sm text-right">
+              <div class="col-lg-6 hidden-sm text-right">
                 <a href="javascript:void(0);" class="btn btn-outline-secondary"
                   ><i class="fa fa-camera"></i
                 ></a>
@@ -70,7 +70,7 @@
                 <a href="javascript:void(0);" class="btn btn-outline-warning"
                   ><i class="fa fa-question"></i
                 ></a>
-              </div> -->
+              </div>
             </div>
           </div>
           <div class="chat-history">
@@ -83,81 +83,43 @@
                     alt="avatar"
                   />
                 </div>
-                <div *ngFor="let msg of messages">
-                  <div class="message other-message">
-                    <span style="margin-left: 1em">{{ msg.username }}</span>
-                    <span style="margin-left: 1em">{{ msg.receiverName }}</span>
-                    <span style="margin-left: 1em">{{ msg.content }}</span>
-                  </div>
-                  <br />
-                  <!-- Add the <br> tag here to create a line break -->
+                <div class="message other-message" *ngFor="let msg of messages">
+                  <span>{{msg.username}}</span>
+                  <span>{{msg.receiverName}}</span>
+                  <span>{{msg.content}}</span>
+                </div>
+              </li>
+              <li class="clearfix">
+                <div class="message-data">
+                  <span class="message-data-time">10:12 AM, Today</span>
+                </div>
+                <div class="message my-message">Are we meeting today?</div>
+              </li>
+              <li class="clearfix">
+                <div class="message-data">
+                  <span class="message-data-time">10:15 AM, Today</span>
+                </div>
+                <div class="message my-message">
+                  Project has been already finished and I have results to show
+                  you.
                 </div>
               </li>
             </ul>
           </div>
-
-          <div class="message-input">
-            <input
-              [(ngModel)]="message"
-              (keyup.enter)="sendMessage()"
-              placeholder="Enter a message"
-            />
-            <button (click)="sendMessage()">Send</button>
+          <div class="chat-message clearfix">
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-send"></i></span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter text here..."
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Old Desgin of Chat -->
-
-<!-- <h1>{{ loginUser }}</h1>
-<div class="chat-container">
-  <div class="chat-container">
-    <div class="user-list">
-      <h3>Your Friends:</h3>
-      <ul>
-        <li
-          *ngFor="let user of userlist"
-          (click)="selectUser(user)"
-          [ngClass]="{ 'selected-user': user === selectedUser }"
-        >
-          {{ user.username }}
-        </li>
-      </ul>
-    </div>
-  </div> -->
-
-<!-- your-component.component.html -->
-
-<!-- <div>
-    <h2>Messages</h2>
-    <ul>
-      <li *ngFor="let message of messages">{{ message }}</li>
-    </ul>
-  </div> -->
-
-<!-- <div class="chat-interface">
-    <div class="chat-header">
-      <h2>Chat with {{ selectedUser?.username }}</h2>
-    </div>
-
-    <div class="chat-messages">
-      <div *ngFor="let msg of messages" class="message">
-        <span style="margin-left: 1em">{{ msg.username }}</span>
-        <span style="margin-left: 1em">{{ msg.receiverName }}</span>
-        <span style="margin-left: 1em">{{ msg.content }}</span>
-      </div>
-    </div>
-
-    <div class="message-input">
-      <input
-        [(ngModel)]="message"
-        (keyup.enter)="sendMessage()"
-        placeholder="Enter a message"
-      />
-      <button (click)="sendMessage()">Send</button>
-    </div>
-  </div>
-</div> -->
