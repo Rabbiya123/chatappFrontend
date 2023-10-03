@@ -25,14 +25,14 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const usernameParam = this.route.snapshot.queryParamMap.get('username');
-    const emailParam = this.route.snapshot.queryParamMap.get('email');
-    const roleParam = this.route.snapshot.queryParamMap.get('role');
+    const username = this.route.snapshot.queryParamMap.get('username');
+    const email = this.route.snapshot.queryParamMap.get('email');
+    const role = this.route.snapshot.queryParamMap.get('role');
 
-    if (emailParam && roleParam && usernameParam) {
-      this.username = usernameParam;
-      this.email = emailParam;
-      this.role = roleParam;
+    if (email && role && username) {
+      this.username = username;
+      this.email = email;
+      this.role = role;
     }
   }
 
@@ -58,6 +58,13 @@ export class HomeComponent implements OnInit {
         console.log('Navigation to User List succeeded');
       } else {
         console.error('Navigation to User List failed');
+      }
+    });
+  }
+  logout() {
+    this.router.navigate(['/login']).then((nav) => {
+      if (nav) {
+        console.log('User logout');
       }
     });
   }

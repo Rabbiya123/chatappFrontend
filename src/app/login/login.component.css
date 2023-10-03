@@ -2106,7 +2106,7 @@ pre code {
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #8b0000;
+  border: 1px solid #007bff;
   border-radius: 0.25rem;
   -webkit-transition: border-color 0.15s ease-in-out,
     -webkit-box-shadow 0.15s ease-in-out;
@@ -2131,7 +2131,7 @@ pre code {
 .form-control:focus {
   color: #495057;
   background-color: #fff;
-  border-color: #8b0000;
+  border-color: #007bff;
   outline: 0;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
@@ -10672,7 +10672,7 @@ a {
   -webkit-transition: 0.3s all ease;
   -o-transition: 0.3s all ease;
   transition: 0.3s all ease;
-  color: #8b0000;
+  color: #007bff;
 }
 a:hover,
 a:focus {
@@ -10792,7 +10792,7 @@ h5,
   outline: none !important;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border: 1px solid #8b0000;
+  border: 1px solid #007bff;
 }
 
 .field-icon {
@@ -10824,7 +10824,7 @@ h5,
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 1px;
-  color: #8b0000;
+  color: #007bff;
   font-weight: 700;
 }
 
@@ -10847,7 +10847,7 @@ h5,
 }
 .social-media .social-icon:hover,
 .social-media .social-icon:focus {
-  background: #8b0000;
+  background: #007bff;
 }
 .social-media .social-icon:hover span,
 .social-media .social-icon:focus span {
@@ -10914,10 +10914,10 @@ h5,
 
 /* Style the checkmark/indicator */
 .checkbox-primary {
-  color: #8b0000;
+  color: #007bff;
 }
 .checkbox-primary input:checked ~ .checkmark:after {
-  color: #8b0000;
+  color: #007bff;
 }
 
 .btn {
@@ -10933,12 +10933,12 @@ h5,
   outline: none;
 }
 .btn.btn-primary {
-  background: #8b0000 !important;
-  border: 1px solid #8b0000 !important;
+  background: #007bff !important;
+  border: 1px solid #007bff !important;
   color: #fff !important;
 }
 .btn.btn-primary:hover {
-  border: 1px solid #8b0000;
+  border: 1px solid #007bff;
   background: transparent;
   color: #01d28e;
 }
