@@ -66,4 +66,9 @@ export class AuthService {
   getUsername(): string | undefined {
     return this.user ? this.user.username : undefined;
   }
+
+  sendId(userId: any) {
+    const url = 'http://localhost:3000/loginUserId';
+    return this.http.post(url, { userId });
+  }
 }

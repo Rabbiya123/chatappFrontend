@@ -8,17 +8,21 @@ import jwt_decode from 'jwt-decode';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   c1 = {
     email: '',
     password: '',
   };
 
+  token: any;
+  decodetoken: any;
+  loginUserId: any;
   constructor(
     private http: HttpClient,
     private router: Router,
     private authService: AuthService
   ) {}
+
   getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);
@@ -62,7 +66,21 @@ export class LoginComponent {
     );
   }
 
+  ngOnInit(): void {
+    this.token = this.authService.getToken();
+    this.decodetoken = this.authService.decodeToken(this.token);
+
+    if (this.decodetoken) {
+      this.loginUserId = this.decodetoken.userId;
+      console.log('this is login user id', this.loginUserId);
+    }
+    this.authService.sendId(this.loginUserId).subscribe(
+      (response) => {
+        console.log('User ID sent successfully');
+      },
+      (error) => {
+        console.error('Error sending user ID', error);
+      }
+    );
+  }
 }
-
-  
-
