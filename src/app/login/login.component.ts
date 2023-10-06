@@ -65,7 +65,6 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
   ngOnInit(): void {
     this.token = this.authService.getToken();
     this.decodetoken = this.authService.decodeToken(this.token);

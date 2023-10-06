@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Observable, Observer } from 'rxjs';
+import { observeNotification } from 'rxjs/internal/Notification';
 import io from 'socket.io-client';
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,15 @@ export class WebsocketService {
       this.socket.on('message', (message: string) => {
         observer.next(message);
         console.log('received ', message);
+      });
+    });
+  }
+
+  getStatus() {
+    return new Observable((observe: Observer<any>) => {
+      this.socket.on('userStatus', (value: string) => {
+        observe.next(value);
+        console.log('userstatus', value);
       });
     });
   }

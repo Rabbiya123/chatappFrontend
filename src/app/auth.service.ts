@@ -45,24 +45,18 @@ export class AuthService {
     this.loggedInUser = user;
   }
 
-  // Login method
-
   login(credentials: any): Observable<any> {
-    // Assuming you make an HTTP request to authenticate the user
     return this.http.post('http://localhost:3000/api/login', credentials);
   }
 
-  // Set the user information
   setUser(user: any): void {
     this.user = user;
   }
 
-  // Get the user information
   getUser(): any {
     return this.user;
   }
 
-  // Get the username
   getUsername(): string | undefined {
     return this.user ? this.user.username : undefined;
   }

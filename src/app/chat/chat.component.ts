@@ -102,13 +102,11 @@ export class ChatComponent implements OnInit {
       };
 
       console.log('Message Send', message);
-      // simply console
 
       this.websocketService.sendMessage(message);
-      // its send a message to sever side
 
       this.messages.push(`You: ${this.message}`);
-      // its display the message client side screen
+
       this.message = '';
     }
   }
