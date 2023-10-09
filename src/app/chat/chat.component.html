@@ -28,17 +28,26 @@
                 alt="avatar"
               />
               <div class="about">
-                <div class="name">{{ user.username }}</div>
-                <div class="status">
-                  <span>Online</span>
-                  <!-- <i class="fa fa-circle offline"></i> left 7 mins ago -->
+                <div class="name">
+                  {{ user.username }}
+                </div>
+
+                <div>
+                  <p>
+                    <i
+                      [ngClass]="{
+                        'fa fa-circle offline': !online[user._id],
+                        'fa fa-circle online': online[user._id]
+                      }"
+                    ></i>
+                    {{ online[user._id] ? "Online" : "Offline" }}
+                  </p>
                 </div>
               </div>
             </li>
           </ul>
           <!-- ---------------------------------------------------------------- -->
         </div>
-
         <div class="chat">
           <div class="chat-header clearfix">
             <div class="row">
@@ -95,55 +104,3 @@
     </div>
   </div>
 </div>
-
-<!-- Old Desgin of Chat -->
-
-<!-- <h1>{{ loginUser }}</h1>
-<div class="chat-container">
-  <div class="chat-container">
-    <div class="user-list">
-      <h3>Your Friends:</h3>
-      <ul>
-        <li
-          *ngFor="let user of userlist"
-          (click)="selectUser(user)"
-          [ngClass]="{ 'selected-user': user === selectedUser }"
-        >
-          {{ user.username }}
-        </li>
-      </ul>
-    </div>
-  </div> -->
-
-<!-- your-component.component.html -->
-
-<!-- <div>
-    <h2>Messages</h2>
-    <ul>
-      <li *ngFor="let message of messages">{{ message }}</li>
-    </ul>
-  </div> -->
-
-<!-- <div class="chat-interface">
-    <div class="chat-header">
-      <h2>Chat with {{ selectedUser?.username }}</h2>
-    </div>
-
-    <div class="chat-messages">
-      <div *ngFor="let msg of messages" class="message">
-        <span style="margin-left: 1em">{{ msg.username }}</span>
-        <span style="margin-left: 1em">{{ msg.receiverName }}</span>
-        <span style="margin-left: 1em">{{ msg.content }}</span>
-      </div>
-    </div>
-
-    <div class="message-input">
-      <input
-        [(ngModel)]="message"
-        (keyup.enter)="sendMessage()"
-        placeholder="Enter a message"
-      />
-      <button (click)="sendMessage()">Send</button>
-    </div>
-  </div>
-</div> -->

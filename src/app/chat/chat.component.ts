@@ -15,6 +15,11 @@ import { response } from 'express';
 export class ChatComponent implements OnInit {
   // Variable declaration
   message: any;
+  online: any[] = [
+    {
+      value: '',
+    },
+  ];
   senderid: string = '';
   receiverid: string = '';
   messages: any[] = [
@@ -123,6 +128,17 @@ export class ChatComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching other users:', error);
+      }
+    );
+
+    // Get Online User Status
+    this.websocketService.getOnlineUser().subscribe(
+      (onlineuser) => {
+        this.online = onlineuser;
+        console.log('status of online users', this.online);
+      },
+      (error) => {
+        console.error('error while finding the online user status', error);
       }
     );
 

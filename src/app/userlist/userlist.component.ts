@@ -16,7 +16,6 @@ export class UserlistComponent implements OnInit {
   constructor(private agentService: AgentService) {}
 
   ngOnInit() {
-    // Fetch agent data when the component initializes
     this.agentService.getAgents().subscribe(
       (agents) => {
         this.showUserTable = true;
@@ -24,7 +23,6 @@ export class UserlistComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching agents:', error);
-        // Handle the error here, you can display an error message or take other actions
       }
     );
   }

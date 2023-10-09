@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Observable, Observer } from 'rxjs';
 import { observeNotification } from 'rxjs/internal/Notification';
 import io from 'socket.io-client';
@@ -7,12 +8,13 @@ import io from 'socket.io-client';
   providedIn: 'root',
 })
 export class WebsocketService {
+  private onlineUserApi = 'http://localhost:3000/onlineUser';
   private socket: any;
   private connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.socket = io('http://localhost:3000', {
       transports: ['websocket', 'polling'],
     });
@@ -40,13 +42,8 @@ export class WebsocketService {
     });
   }
 
-  getStatus() {
-    return new Observable((observe: Observer<any>) => {
-      this.socket.on('userStatus', (value: string) => {
-        observe.next(value);
-        console.log('userstatus', value);
-      });
-    });
+  getOnlineUser(): Observable<any[]> {
+    return this.http.get<any[]>(this.onlineUserApi);
   }
 
   // Track WebSocket connection status
