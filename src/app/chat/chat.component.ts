@@ -112,7 +112,7 @@ export class ChatComponent implements OnInit {
         receiver: this.selectedUser._id,
         receiverName: this.selectedUser.username,
         content: this.message,
-        thread: this.thread_id,
+        // thread: this.thread_id,
       };
       // if (!this.activeThread) {
       //   // this.generateRandomChatId();
@@ -142,6 +142,11 @@ export class ChatComponent implements OnInit {
     this.AgentService.getOtherUsers().subscribe(
       (users: any[]) => {
         this.userlist = users;
+
+        // Automatically select the first user when the userlist is loaded
+        if (this.userlist.length > 0) {
+          this.selectUser(this.userlist[0]);
+        }
       },
       (error) => {
         console.error('Error fetching other users:', error);
