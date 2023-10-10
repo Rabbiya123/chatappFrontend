@@ -85,6 +85,12 @@
                     <span style="margin-left: 1em">{{ msg.receiverName }}</span>
                     <span style="margin-left: 1em">{{ msg.content }}</span>
                   </div>
+                  <div
+                    *ngFor="let item of thread_id; let i = index"
+                    [ngClass]="{ highlighted: i === 0 }"
+                  >
+                    {{ item }}
+                  </div>
                   <br />
                 </div>
               </li>

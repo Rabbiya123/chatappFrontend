@@ -15,6 +15,8 @@ import { response } from 'express';
 export class ChatComponent implements OnInit {
   // Variable declaration
   message: any;
+  // chatId: String[] = [];
+  // activeThread: String | null = null;
   online: any[] = [
     {
       value: '',
@@ -45,6 +47,7 @@ export class ChatComponent implements OnInit {
     email: '',
     password: '',
   };
+  thread_id: any = `${this.senderid}_${this.receiverid}`;
 
   // simple Constructor with its three permeters
   constructor(
@@ -71,6 +74,11 @@ export class ChatComponent implements OnInit {
     }
   }
   //-------------------------------------------
+  generateRandomChatId() {
+    const randomChatId = Math.floor(Math.random() * 100000).toString();
+
+    // this.activeThread = randomChatId;
+  }
 
   //-------Select User from the list-----------
   selectUser(user: any) {
@@ -104,9 +112,18 @@ export class ChatComponent implements OnInit {
         receiver: this.selectedUser._id,
         receiverName: this.selectedUser.username,
         content: this.message,
+        thread: this.thread_id,
       };
+      // if (!this.activeThread) {
+      //   // this.generateRandomChatId();
+      // }
 
-      console.log('Message Send', message);
+      console.log(
+        'Message Send',
+        message,
+        'random gerenate id'
+        // this.activeThread
+      );
 
       this.websocketService.sendMessage(message);
 
