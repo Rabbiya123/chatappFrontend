@@ -32,38 +32,43 @@ export class LoginComponent implements OnInit {
     }
   }
   login() {
-    this.http.post('http://localhost:3000/api/login', this.c1).subscribe(
-      (response: any) => {
-        console.log('Response Email:', response.email);
-        console.log('Response Role:', response.role);
+    if (this.authService.isLoggedIn()) {
+      alert('You are already logged in.');
+      this.router.navigate(['/home']);
+    } else {
+      this.http.post('http://localhost:3000/api/login', this.c1).subscribe(
+        (response: any) => {
+          console.log('Response Email:', response.email);
+          console.log('Response Role:', response.role);
 
-        alert('Login Successfully');
-        if (response.token && response.email && response.username) {
-          // console.log('Setting token:', response.token);
-          this.authService.setToken(response.token);
-          this.router.navigate(['/home'], {
-            queryParams: {
-              email: response.email,
-              role: response.role,
-              username: response.username,
-            },
-          });
-        }
-
-        this.authService.login(this.c1).subscribe(
-          (response: any) => {
-            this.authService.setUser(response);
-          },
-          (error) => {
-            console.error('this is an error', error);
+          alert('Login Successfully');
+          if (response.token && response.email && response.username) {
+            // console.log('Setting token:', response.token);
+            this.authService.setToken(response.token);
+            this.router.navigate(['/home'], {
+              queryParams: {
+                email: response.email,
+                role: response.role,
+                username: response.username,
+              },
+            });
           }
-        );
-      },
-      (error) => {
-        console.error(error);
-        alert('Login Failed');
-      }
-    );
+
+          this.authService.login(this.c1).subscribe(
+            (response: any) => {
+              this.authService.setUser(response);
+            },
+            (error) => {
+              console.error('this is an error', error);
+            }
+          );
+        },
+        (error) => {
+          console.error(error);
+          alert('Login Failed');
+        }
+      );
+    }
   }
   ngOnInit(): void {
     this.token = this.authService.getToken();

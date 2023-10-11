@@ -80,18 +80,21 @@
                   />
                 </div>
                 <div *ngFor="let msg of messages">
-                  <div class="message other-message">
-                    <span style="margin-left: 1em">{{ msg.username }}</span>
-                    <span style="margin-left: 1em">{{ msg.receiverName }}</span>
-                    <span style="margin-left: 1em">{{ msg.content }}</span>
-                  </div>
-                  <!-- <div
-                    *ngFor="let item of thread_id; let i = index"
-                    [ngClass]="{ highlighted: i === 0 }"
+                  <div
+                    [ngClass]="{
+                      'my-message': msg.sender === senderid,
+                      'other-message': msg.sender !== senderid
+                    }"
+                    [ngStyle]="{
+                      'background-color':
+                        msg.sender === senderid ? 'aliceblue' : 'lightgrey'
+                    }"
                   >
-                    {{ item }}
-                  </div> -->
-                  <br />
+                    <span>{{
+                      msg.sender === senderid ? loginuserName : msg.receiverName
+                    }}</span>
+                    <p>{{ msg.content }}</p>
+                  </div>
                 </div>
               </li>
             </ul>
@@ -99,7 +102,7 @@
 
           <div class="message-input">
             <input
-              [(ngModel)]="message"
+              [(ngModel)]="message1"
               (keyup.enter)="sendMessage()"
               placeholder="Enter a message"
             />

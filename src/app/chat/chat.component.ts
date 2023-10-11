@@ -14,7 +14,7 @@ import { response } from 'express';
 })
 export class ChatComponent implements OnInit {
   // Variable declaration
-  message: any;
+  message1: any;
   // chatId: String[] = [];
   // activeThread: String | null = null;
   online: any[] = [
@@ -102,7 +102,7 @@ export class ChatComponent implements OnInit {
 
   //-----Send Message to Serve Code -----------
   sendMessage() {
-    if (this.selectedUser && this.message.trim() !== '') {
+    if (this.selectedUser && this.message1.trim() !== '') {
       console.log('Sender ID:', this.senderid);
       console.log('receiver ID:', this.receiverid);
 
@@ -111,28 +111,17 @@ export class ChatComponent implements OnInit {
         username: this.loginuserName,
         receiver: this.selectedUser._id,
         receiverName: this.selectedUser.username,
-        content: this.message,
-        // thread: this.thread_id,
+        content: this.message1,
       };
-      // if (!this.activeThread) {
-      //   // this.generateRandomChatId();
-      // }
-
-      console.log(
-        'Message Send',
-        message,
-        'random gerenate id'
-        // this.activeThread
-      );
+      this.messages.push(message);
 
       this.websocketService.sendMessage(message);
 
-      this.messages.push(`You: ${this.message}`);
+      this.messages.push(`${this.loginuserName}: ${this.message1}`);
 
-      this.message = '';
+      this.message1 = '';
     }
   }
-
   //---------------------------------------------------
 
   //--------Display All user onto Screen---------------

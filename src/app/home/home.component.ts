@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AgentService } from '../agent.service';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import { faList } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private agentService: AgentService
+    private agentService: AgentService,
+    public authservice: AuthService
   ) {}
 
   ngOnInit() {
@@ -62,6 +64,7 @@ export class HomeComponent implements OnInit {
     });
   }
   logout() {
+    this.authservice.clearToken();
     this.router.navigate(['/login']).then((nav) => {
       if (nav) {
         console.log('User logout');
