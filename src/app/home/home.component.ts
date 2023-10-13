@@ -4,7 +4,7 @@ import { AgentService } from '../agent.service';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../auth.service';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,7 +23,8 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private agentService: AgentService,
-    public authservice: AuthService
+    public authservice: AuthService,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -52,6 +53,10 @@ export class HomeComponent implements OnInit {
         console.log('Going to the ChatApps');
       }
     });
+
+    if (!this.authservice.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    }
   }
 
   showUserList() {
@@ -60,14 +65,6 @@ export class HomeComponent implements OnInit {
         console.log('Navigation to User List succeeded');
       } else {
         console.error('Navigation to User List failed');
-      }
-    });
-  }
-  logout() {
-    this.authservice.clearToken();
-    this.router.navigate(['/login']).then((nav) => {
-      if (nav) {
-        console.log('User logout');
       }
     });
   }

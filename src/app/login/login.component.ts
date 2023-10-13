@@ -3,12 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import jwt_decode from 'jwt-decode';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+} from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, HttpInterceptor {
   c1 = {
     email: '',
     password: '',
@@ -17,6 +22,7 @@ export class LoginComponent implements OnInit {
   token: any;
   decodetoken: any;
   loginUserId: any;
+  loginusername: any;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -36,55 +42,55 @@ export class LoginComponent implements OnInit {
       alert('You are already logged in.');
       this.router.navigate(['/home']);
     } else {
-      this.http.post('http://localhost:3000/api/login', this.c1).subscribe(
+      this.authService.login(this.c1).subscribe(
         (response: any) => {
-          console.log('Response Email:', response.email);
-          console.log('Response Role:', response.role);
-
-          alert('Login Successfully');
-          if (response.token && response.email && response.username) {
-            // console.log('Setting token:', response.token);
-            this.authService.setToken(response.token);
-            this.router.navigate(['/home'], {
-              queryParams: {
-                email: response.email,
-                role: response.role,
-                username: response.username,
-              },
-            });
-          }
-
-          this.authService.login(this.c1).subscribe(
-            (response: any) => {
-              this.authService.setUser(response);
+          console.log('Login successful');
+          this.authService.setToken(response.token);
+          this.router.navigate(['/home'], {
+            queryParams: {
+              email: response.email,
+              role: response.role,
+              username: response.username,
             },
-            (error) => {
-              console.error('this is an error', error);
-            }
-          );
+          });
         },
         (error) => {
-          console.error(error);
-          alert('Login Failed');
+          console.error('Login failed', error);
         }
       );
     }
   }
+
   ngOnInit(): void {
     this.token = this.authService.getToken();
     this.decodetoken = this.authService.decodeToken(this.token);
 
     if (this.decodetoken) {
       this.loginUserId = this.decodetoken.userId;
+      this.loginusername = this.decodetoken.username;
       console.log('this is login user id', this.loginUserId);
+      console.log('this is loginuser name', this.loginusername);
     }
-    this.authService.sendId(this.loginUserId).subscribe(
-      (response) => {
-        console.log('User ID sent successfully');
-      },
-      (error) => {
-        console.error('Error sending user ID', error);
-      }
-    );
+    //   this.authService.sendId(this.loginUserId).subscribe(
+    //     (response) => {
+    //       console.log('User ID sent successfully');
+    //     },
+    //     (error) => {
+    //       console.error('Error sending user ID', error);
+    //     }
+    //   );
+    // }
+  }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const token = this.authService.getToken();
+    if (token) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+    return next.handle(req);
   }
 }

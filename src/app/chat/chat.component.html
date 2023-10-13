@@ -1,9 +1,4 @@
-<link
-  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-  rel="stylesheet"
-/>
-
-<h2>{{ loginUser }}</h2>
+<app-header></app-header>
 <div class="container">
   <div class="row clearfix">
     <div class="col-lg-12">
@@ -79,6 +74,7 @@
                     alt="avatar"
                   />
                 </div>
+
                 <div *ngFor="let msg of messages">
                   <div
                     [ngClass]="{
@@ -87,13 +83,20 @@
                     }"
                     [ngStyle]="{
                       'background-color':
-                        msg.sender === senderid ? 'aliceblue' : 'lightgrey'
+                        msg.sender === senderid
+                          ? 'rgb(176, 201, 223)'
+                          : 'rgb(238, 238, 238)'
                     }"
+                    class="message-bubble"
                   >
-                    <span>{{
-                      msg.sender === senderid ? loginuserName : msg.receiverName
-                    }}</span>
-                    <p>{{ msg.content }}</p>
+                    <span class="message-sender">
+                      {{
+                        msg.sender === senderid
+                          ? loginuserName
+                          : msg.receiverName
+                      }}
+                    </span>
+                    <p class="message-content">{{ msg.content }}</p>
                   </div>
                 </div>
               </li>

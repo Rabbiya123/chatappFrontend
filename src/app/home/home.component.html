@@ -1,62 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="navbar">
-      <div class="logo">
-        <h1>MALIX</h1>
-      </div>
+<app-header></app-header>
 
-      <div class="user-info">
-        <i class="fas fa-user-circle fa-2x"></i>
-        <h2>{{ username }}</h2>
-        <button (click)="logout()" *ngIf="authservice.isLoggedIn()">
-          Logout
-        </button>
-      </div>
-    </div>
+<div class="dashboard">
+  <div class="button-container">
+    <button class="dashboard-button" (click)="showUserList()">
+      <img
+        src="https://lirp.cdn-website.com/519d3ac1/dms3rep/multi/opt/sms-color-1920w.png"
+        alt=""
+        id="1952073423"
+        class="button-icon"
+        data-dm-image-path="https://irp.cdn-website.com/519d3ac1/dms3rep/multi/sms-color.png"
+        onerror="handleImageLoadError(this)"
+        style="object-fit: cover; width: 100%; height: 100%"
+      />
+      <!-- <i class="fas fa-users button-icon"></i> -->
+      <span class="button-text">User List</span>
+    </button>
 
-    <div class="dashboard">
-      <div class="button-container">
-        <button class="dashboard-button" (click)="showUserList()">
-          <img
-            src="https://lirp.cdn-website.com/519d3ac1/dms3rep/multi/opt/sms-color-1920w.png"
-            alt=""
-            id="1952073423"
-            class="button-icon"
-            data-dm-image-path="https://irp.cdn-website.com/519d3ac1/dms3rep/multi/sms-color.png"
-            onerror="handleImageLoadError(this)"
-            style="object-fit: cover; width: 100%; height: 100%"
-          />
-          <!-- <i class="fas fa-users button-icon"></i> -->
-          <span class="button-text">User List</span>
-        </button>
-
-        <button
-          class="dashboard-button"
-          *ngIf="isAgent() || isAdmin()"
-          (click)="startChat()"
-        >
-          <img
-            src="https://lirp.cdn-website.com/519d3ac1/dms3rep/multi/opt/chat-color-1920w.png"
-            alt=""
-            id="1014756893"
-            class="button-icon"
-            data-dm-image-path="https://irp.cdn-website.com/519d3ac1/dms3rep/multi/chat-color.png"
-            onerror="handleImageLoadError(this)"
-            style="object-fit: cover; width: 100%; height: 100%"
-          />
-          <!-- <i class="fas fa-comments button-icon"></i> -->
-          <span class="button-text">Chat</span>
-        </button>
-      </div>
-    </div>
-  </body>
-</html>
+    <button
+      class="dashboard-button"
+      *ngIf="isAgent() || isAdmin()"
+      (click)="startChat()"
+    >
+      <img
+        src="https://lirp.cdn-website.com/519d3ac1/dms3rep/multi/opt/chat-color-1920w.png"
+        alt=""
+        id="1014756893"
+        class="button-icon"
+        data-dm-image-path="https://irp.cdn-website.com/519d3ac1/dms3rep/multi/chat-color.png"
+        onerror="handleImageLoadError(this)"
+        style="object-fit: cover; width: 100%; height: 100%"
+      />
+      <!-- <i class="fas fa-comments button-icon"></i> -->
+      <span class="button-text">Chat</span>
+    </button>
+  </div>
+</div>

@@ -245,6 +245,7 @@ body {
 .chat .chat-history .other-message {
   background: #e8f1f3;
   text-align: right;
+  margin-left: 50em;
 }
 
 .chat .chat-history .other-message:after {
@@ -287,6 +288,32 @@ body {
   content: " ";
   clear: both;
   height: 0;
+}
+.message-bubble {
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
+  max-width: 30%;
+  word-wrap: break-word;
+}
+
+.my-message {
+  background-color: rgb(176, 201, 223);
+}
+
+.other-message {
+  align-self: flex-start;
+  background-color: rgb(238, 238, 238);
+}
+
+.message-sender {
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.message-content {
+  font-size: 16px;
 }
 
 @media only screen and (max-width: 767px) {

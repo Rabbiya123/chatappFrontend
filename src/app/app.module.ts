@@ -23,6 +23,7 @@ import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { UserlistComponent } from './userlist/userlist.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChatComponent } from './chat/chat.component';
+import { HeaderComponent } from './header/header.component';
 @NgModule({
   imports: [
     AppRoutingModule,
@@ -40,6 +41,7 @@ import { ChatComponent } from './chat/chat.component';
     HomeComponent,
     UserlistComponent,
     ChatComponent,
+    HeaderComponent,
   ],
   providers: [
     {

@@ -11,6 +11,7 @@ import { AuthGuard } from './auth.guard';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserlistComponent } from './userlist/userlist.component';
 import { ChatComponent } from './chat/chat.component';
+import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [
   {
@@ -29,10 +30,17 @@ const routes: Routes = [
   {
     path: 'userlist',
     component: UserlistComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'chat',
     component: ChatComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'header',
+    component: ChatComponent,
+    canActivate: [AuthGuard],
   },
 
   {
