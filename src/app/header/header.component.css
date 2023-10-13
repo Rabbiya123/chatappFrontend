@@ -34,3 +34,14 @@ body {
 .user-info h2 {
   margin-left: 3px;
 }
+.btn {
+  margin-left: 1em;
+  padding: 0.4em;
+  font-weight: bold;
+  font-size: 1em;
+  border-radius: 3px;
+  border: none;
+  background-color: rgb(7, 116, 7);
+  width: 35%;
+  color: #fff;
+}
